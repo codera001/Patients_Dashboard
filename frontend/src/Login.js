@@ -18,14 +18,8 @@ function Login() {
 
     const handleSubmit = (event) => { event.preventDefault();
          const err = Validation(values); setErrors(err); 
-         if (err.email === "" && err.password === "") { axios.post('localhost:8081/login', values)
-         .then(res => { if (res.data.errors) 
-            { setBackendError(res.data.errors);
-             } else { setBackendError([]); 
-                if (res.data === "Success") {
-                     navigate('/home'); 
-                    } else { alert("No record existed"); 
-                } } })
+         if (err.email === "" && err.password === "") {axios.post('http://localhost:8081/login', values)
+         .then(res=>{navigate('/home');})
                 .catch(err => console.log(err)); 
             } }
     return (

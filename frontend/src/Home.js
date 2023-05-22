@@ -5,15 +5,15 @@ import Track  from "react-tracking";
 // import 'bootstrap/dist/css/bootstarap.min.css'
 // import 'bootstrap-icons/font/bootstrap-icons.css'
 function Home() {
-    axios('/path/to/user/endpoint', {
-        method: 'get'
-       })
-       .then(response => {
-         this.setState({name: response.data.name})
-       })
-       .catch(err => {
-         console.log(err);
-       })
+    // axios('/path/to/user/endpoint', {
+    //     method: 'get'
+    //    })
+    //    .then(response => {
+    //      this.setState({name: response.data.name})
+    //    })
+    //    .catch(err => {
+    //      console.log(err);
+    //    })
     const [theme, setTheme] = useState('light');
     const toggleTheme = () => {
         if (theme === 'light') {
@@ -62,8 +62,8 @@ function Home() {
                 </div>
                 <div className='col d-flex justify-content-center '>
                     <div className={`App ${theme}`} >
-                        <button onClick={toggleTheme} className>Toggle Theme</button>
-                        <h1>Welcome  <Track name={this.state.name} />to Medvik</h1>
+                        <button onClick={toggleTheme} className="toggle">Toggle Theme</button>
+                        {/* <h1>Welcome  <Track name={this.state.name} />to Medvik</h1> */}
                     </div>
                 </div>
             </div>
