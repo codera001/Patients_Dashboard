@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Validation from './LoginValidation';
 import axios from 'axios';
+import hospitalLogo from '../src/assets/hospitalLogo.png';
 
 
 function Login() {
@@ -12,20 +13,43 @@ function Login() {
     const navigate = useNavigate()
     const [errors, setErrors] = useState({})
     const [backendError, setBackendError] = useState([])
-    const handleInput = (event) => {
-        setValues(prev => ({ ...prev, [event.target.name]: [event.target.value] }))
+    const handleInput = (e) => {
+        setValues(prev => ({ ...prev, [e.target.name]: [e.target.value] }))
     }
-
-    const handleSubmit = (event) => { event.preventDefault();
+     axios.defaults.withCredentials = true;
+    const handleSubmit = (e) => { e.preventDefault();
          const err = Validation(values); setErrors(err); 
-         if (err.email === "" && err.password === "") {axios.post('http://localhost:8081/login', values)
-         .then(res=>{navigate('/home');})
+         if (err.email === "" && err.password === "") {axios.post('http://localhost:8081/', values)
+         .then(res=>{
+            
+            if(res.data.Status === "Success"){
+                navigate('/home')
+            } else {
+                alert("no record exist");
+            }
+               
+            })
                 .catch(err => console.log(err)); 
             } }
+
+            // const handleSubmit = (event) => { 
+            //     event.preventDefault(); const err = Validation(values); setErrors(err); 
+            //     if (err.email === "" && err.password === "") { 
+            //         axios.post('http://localhost:8081/login', values)
+            //         .then(res => { navigate('home'); })
+            //         .catch(err => console.log(err)); } }
+        
     return (
-        <div className='d-flex justify-content-center align-items-center  bg-primary vh-100'>
+        <div className='d-flex justify-content-center align-items-center  vh-100'  >
             <div className='bg-white p-3 rounded w-25'>
-                <h2>Sign-In</h2>
+            <img
+                  // alt="profile-user"
+                  width="100px"
+                  height="100px"
+                  src={hospitalLogo}
+                  style={{ cursor: "pointer", borderRadius: "50%"}}
+                />
+                <h2    style={{  textAlign:"center"}}>Sign-In</h2>
                 {backendError ? backendError.map( e => (<p className='text-danger'>{e.msg}</p>)) : <span></span>} 
                 <form action='' onSubmit={handleSubmit}>
                     <div className='mb-3'>
